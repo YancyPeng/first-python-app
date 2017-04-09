@@ -1,6 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+
 import logging
-logging.basicConfig(level = logging.INFO)   #logging允许指定记录信息的级别，有debug,info,warning,error等级别
+logging.basicConfig(level = logging.INFO)   
+
 '''
+logging允许指定记录信息的级别，有debug,info,warning,error等级别
 日志级别：
 critical > error > warning > info > debug,notset
 级别越高打印的日志越少，反之亦然，即
