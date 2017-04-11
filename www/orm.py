@@ -50,17 +50,20 @@ async def select(sql, args, size=None):
         logging.info('rows returned: %s' % len(rs))
         return rs
 
-
-async def execute(sql, args):  # 因为 insert，delete，update只返回影响的行数，所以可以写到一起。
-    log(sql, args)
+@asyncio.coroutine
+def execute(sql, args):  # 因为 insert，delete，update只返回影响的行数，所以可以写到一起。
+    log(sql)
     global __pool
-    async with __pool.get() as conn:
+    with(yield from __pool) as conn:
         try:
-            with conn.cursor(aiomysql.DictCursor) as cur:
-                await cur.execute(sql.replace('?', '%s'), args)
-                affected = cur.rowcount
+            cur = yield from conn.cursor()
+            yield from cur.execute(sql.replace('?', '%s'), args)
+            affected = cur.rowcount
+            yield from cur.close()
         except BaseException as e:
             raise
+        finally:
+        	conn.close()
         return affected
 
 
@@ -247,18 +250,3 @@ class Model(dict, metaclass=ModelMetaclass):  # 会通过 ModelMetaclass.__new__
         if rows != 1:
             logging.warn('failed to remove by primary key: affected rows: %s' % rows)
 
-
-if __name__ == '__main__':
-    class User(Model):
-        id = IntegerField('id', primary_key=True)
-        name = StringField('username')
-        email = StringField('email')
-        password = StringField('password')
-
-
-    u = User(id=12345, name='YancyPeng', email='pyj1048@icloud.com', password='123456')
-    print(u)
-    u.save()
-    print(u)
-    u.remove()
-    print(u)
