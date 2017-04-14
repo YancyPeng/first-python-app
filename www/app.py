@@ -16,7 +16,6 @@ from jinja2 import Environment, FileSystemLoader
 
 import orm
 from coroweb import add_routes, add_static
-import handles
 
 def init_jinja2(app, **kw):
     logging.info('init jinja2...')
