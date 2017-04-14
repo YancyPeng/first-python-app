@@ -5,11 +5,6 @@
 # @Site    :
 # @File    : test4.py
 # @Software: PyCharm
-
-# !/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
-
 import asyncio
 import logging
 
