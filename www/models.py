@@ -40,14 +40,14 @@ class Comment(Model):
     content = TextField()
     created_at = FloatField(default=time.time)
  
-@asyncio.coroutine    
-def test():
-    yield from orm.create_pool(loop, user='root', password='123456', db='awesome')
-
-    u = User(name='YancyPeng', email='pyj@example.com', passwd='1234567890', image='about:blank')
-
-    yield from u.save()
-    
-loop = asyncio.get_event_loop()
-loop.run_until_complete(test())
-loop.close()
+# @asyncio.coroutine    
+# def test():
+#     yield from orm.create_pool(loop, user='root', password='123456', db='awesome')
+# 
+#     u = User(name='YancyPeng', email='pyj@example.com', passwd='1234567890', image='about:blank')
+# 
+#     yield from u.save()
+#     
+# loop = asyncio.get_event_loop()
+# loop.run_until_complete(test())
+# loop.close()
