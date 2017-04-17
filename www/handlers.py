@@ -10,7 +10,7 @@ import markdown2
 from aiohttp import web
 
 from coroweb import get, post
-from apis import APIValueError, APIResourceNotFoundError
+from apis import APIValueError, APIResourceNotFoundError, APIError
 
 from models import User, Comment, Blog, next_id
 from config import configs
@@ -65,7 +65,7 @@ def index(request):
     ]
     return {
         '__template__': 'blogs.html',
-        'blogs': blogs
+        'blogs': blogs,
     }
 
 @get('/register')
@@ -81,6 +81,7 @@ def signin():
     }
 
 @post('/api/authenticate')
+@asyncio.coroutine
 def authenticate(*, email, passwd):
     if not email:
         raise APIValueError('email', 'Invalid email.')
@@ -117,6 +118,7 @@ _RE_EMAIL = re.compile(r'^[a-z0-9\.\-\_]+\@[a-z0-9\-\_]+(\.[a-z0-9\-\_]+){1,4}$'
 _RE_SHA1 = re.compile(r'^[0-9a-f]{40}$')
 
 @post('/api/users')
+@asyncio.coroutine
 def api_register_user(*, email, name, passwd):
     if not name or not name.strip():
         raise APIValueError('name')
