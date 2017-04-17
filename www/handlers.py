@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from coroweb import get, post
-import asyncio
+import re, time, json, logging, hashlib, base64, asyncio
 from models import User, Comment, Blog, next_id
 
 @get('/')
@@ -17,3 +17,11 @@ def index(request):
         '__template__': 'blogs.html',
         'blogs': blogs
     }
+    
+@get('/api/users')
+@asyncio.coroutine
+def api_get_users():
+    users = yield from User.findAll(orderBy='created_at desc')
+    for u in users:
+        u.passwd = '******'
+    return dict(users=users)
