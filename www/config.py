@@ -5,7 +5,6 @@
 Configuration
 '''
 
-
 import config_default
 
 class Dict(dict):
@@ -26,16 +25,19 @@ class Dict(dict):
     def __setattr__(self, key, value):
         self[key] = value
 
-def merge(defaults, override):     # 整合两个字典
+def merge(defaults, override):
     r = {}
     for k, v in defaults.items():
-        if k in override:         
-            r[k] = override[k]	# 如果两个字典中有key相同，则用override中的value覆盖defaults中的value
+        if k in override:
+            if isinstance(v, dict):
+                r[k] = merge(v, override[k])
+            else:
+                r[k] = override[k]
         else:
             r[k] = v
     return r
 
-def toDict(d):	# 将dict类型的参数转换为自定义的 Dict 类型，这样就可以通过 x.y 的方式来使用参数
+def toDict(d):
     D = Dict()
     for k, v in d.items():
         D[k] = toDict(v) if isinstance(v, dict) else v
