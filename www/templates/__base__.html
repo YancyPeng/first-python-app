@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--
+{% macro pagination(url, page) %}
+    <ul class="uk-pagination">
+        {% if page.has_previous %}
+            <li><a href="{{ url }}{{ page.page_index - 1 }}"><i class="uk-icon-angle-double-left"></i></a></li>
+        {% else %}
+            <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+        {% endif %}
+            <li class="uk-active"><span>{{ page.page_index }}</span></li>
+        {% if page.has_next %}
+            <li><a href="{{ url }}{{ page.page_index + 1 }}"><i class="uk-icon-angle-double-right"></i></a></li>
+        {% else %}
+            <li class="uk-disabled"><span><i class="uk-icon-angle-double-right"></i></span></li>
+        {% endif %}
+    </ul>
+{% endmacro %}
+-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="baidu-site-verification" content="Kv41AS5X24" />
+    {% block meta %}<!-- block meta  -->{% endblock %}
+    <title>{% block title %} ? {% endblock %} - YancyPeng的官方网站</title>
+    <link rel="stylesheet" href="/static/css/uikit.min.css">
+    <link rel="stylesheet" href="/static/css/uikit.gradient.min.css">
+    <link rel="stylesheet" href="/static/css/awesome.css" />
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/sha1.min.js"></script>
+    <script src="/static/js/uikit.min.js"></script>
+    <script src="/static/js/sticky.min.js"></script>
+    <script src="/static/js/vue.min.js"></script>
+    <script src="/static/js/awesome.js"></script>
+    {% block beforehead %}<!-- before head  -->{% endblock %}
+</head>
+<body>
+    <nav class="uk-navbar uk-navbar-attached uk-margin-bottom">
+        <div class="uk-container uk-container-center">
+            <a href="/" class="uk-navbar-brand">YancyPeng</a>
+            <ul class="uk-navbar-nav">
+                <li data-url="blogs"><a href="/"><i class="uk-icon-home"></i> 日志</a></li>
+                <li><a target="_blank" href="https://github.com/YancyPeng/first-python-app"><i class="uk-icon-code"></i> 源码</a></li>
+            </ul>
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav">
+                {% if __user__ %}
+                    <li class="uk-parent" data-uk-dropdown>
+                        <a href="#0"><i class="uk-icon-user"></i> {{ __user__.name }}</a>
+                        <div class="uk-dropdown uk-dropdown-navbar">
+                            <ul class="uk-nav uk-nav-navbar">
+                                <li><a href="/manage/comments"><i class="uk-icon-gear"></i> 后台管理</a></li>
+                                <li><a href="/signout"><i class="uk-icon-sign-out"></i> 退出</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                {% else %}
+                    <li><a href="/signin"><i class="uk-icon-sign-in"></i> 登陆</a></li>
+                    <li><a href="/register"><i class="uk-icon-edit"></i> 注册</a></li>
+                {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="uk-container uk-container-center">
+        <div class="uk-grid">
+            <!-- content -->
+            {% block content %}
+            {% endblock %}
+            <!-- // content -->
+        </div>
+    </div>
+
+    <div class="uk-margin-large-top" style="background-color:#eee; border-top:1px solid #ccc;">
+        <div class="uk-container uk-container-center uk-text-center">
+            <div class="uk-panel uk-margin-top uk-margin-bottom">
+                <p>
+                    <a target="_blank" href="http://weibo.com/Yangjun0717" class="uk-icon-button uk-icon-weibo"></a>
+                    <a target="_blank" href="https://github.com/YancyPeng" class="uk-icon-button uk-icon-github"></a>
+                    <a target="_blank" href="https://www.facebook.com/YancyPeng" class="uk-icon-button uk-icon-facebook"></a>
+                </p>
+                <p>Powered by <a href="http://www.yancypeng.xin">YancyPeng</a>. Copyright &copy; 2017. 
+                <p><a href="http://www.yancypeng.xin/" target="_blank">www.YancyPeng.xin</a>. All Rights Reserved.</p>
+                <p><a target="_blank" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;" href="http://webscan.360.cn/index/checkwebsite/url/www.yancypeng.xin"><img style=" width: 50px;" border="0" src="http://img.webscan.360.cn/status/pai/hash/b8e33a93e8ced0ddf95b63c206b9c761"/></a>
+				<script src="https://s11.cnzz.com/z_stat.php?id=1261855407&web_id=1261855407" language="JavaScript"></script></p>
+                <p><a target="_blank" href="http://www.miitbeian.gov.cn/" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img style="float: left; width: 20px;" src="//img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="">
+                <span style="float:left;height:20px;line-height:20px;margin: 0 5px 0 5px; color:#939393;">皖ICP备17009503号 </span>
+                </a>
+                </p>
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
