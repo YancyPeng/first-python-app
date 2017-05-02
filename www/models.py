@@ -1,6 +1,13 @@
-import time, uuid, sys
-import asyncio
-import orm
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+'''
+Models for user, blog, comment.
+'''
+
+
+import time, uuid
+
 from orm import Model, StringField, BooleanField, FloatField, TextField
 
 def next_id():
@@ -39,15 +46,3 @@ class Comment(Model):
     user_image = StringField(ddl='varchar(500)')
     content = TextField()
     created_at = FloatField(default=time.time)
- 
-# @asyncio.coroutine    
-# def test():
-#     yield from orm.create_pool(loop, user='root', password='123456', db='awesome')
-# 
-#     u = User(name='YancyPeng', email='pyj@example.com', passwd='1234567890', image='about:blank')
-# 
-#     yield from u.save()
-#     
-# loop = asyncio.get_event_loop()
-# loop.run_until_complete(test())
-# loop.close()
