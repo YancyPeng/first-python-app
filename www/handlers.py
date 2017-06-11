@@ -80,6 +80,8 @@ def index(*, page='1'):
         blogs = []
     else:
         blogs = yield from Blog.findAll(orderBy='created_at desc', limit=(page.offset, page.limit))
+        for blog in blogs:
+        	blog.html_summary = markdown2.markdown(blog.summary,extras=['code-friendly','fenced-code-blocks'])
     return {
         '__template__': 'blogs.html',
         'page': page,
@@ -91,8 +93,8 @@ def get_blog(id):
     blog = yield from Blog.find(id)
     comments = yield from Comment.findAll('blog_id=?', [id], orderBy='created_at desc')
     for c in comments:
-        c.html_content = text2html(c.content)
-    blog.html_content = markdown2.markdown(blog.content)
+        c.html_content = markdown2.markdown(c.content,extras=['code-friendly','fenced-code-blocks'])
+    blog.html_content = markdown2.markdown(blog.content,extras=['code-friendly','fenced-code-blocks'])
     return {
         '__template__': 'blog.html',
         'blog': blog,
