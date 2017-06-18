@@ -81,9 +81,9 @@ def index(*, page='1'):
     else:
         blogs = yield from Blog.findAll(orderBy='created_at desc', limit=(page.offset, page.limit))
         for blog in blogs:
-        	blog.html_summary = markdown2.markdown(blog.summary,extras=['code-friendly','fenced-code-blocks'])
+         	blog.html_summary = markdown2.markdown(blog.summary,extras=['code-friendly','fenced-code-blocks'])
     return {
-        '__template__': 'blogs.html',
+        '__template__': 'index.html',
         'page': page,
         'blogs': blogs
     }
