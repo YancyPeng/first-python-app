@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+
 '''
 JSON API definition.
 '''
@@ -13,31 +14,7 @@ class Page(object):
     '''
 
     def __init__(self, item_count, page_index=1, page_size=10):
-        '''
-        Init Pagination by item_count, page_index and page_size.
-
-        >>> p1 = Page(100, 1)
-        >>> p1.page_count
-        10
-        >>> p1.offset
-        0
-        >>> p1.limit
-        10
-        >>> p2 = Page(90, 9, 10)
-        >>> p2.page_count
-        9
-        >>> p2.offset
-        80
-        >>> p2.limit
-        10
-        >>> p3 = Page(91, 10, 10)
-        >>> p3.page_count
-        10
-        >>> p3.offset
-        90
-        >>> p3.limit
-        10
-        '''
+        
         self.item_count = item_count
         self.page_size = page_size
         self.page_count = item_count // page_size + (1 if item_count % page_size > 0 else 0)
